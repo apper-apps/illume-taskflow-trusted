@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import 'react-toastify/dist/ReactToastify.css';
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans;
+  }
+}
+
+@layer components {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Toast Customization */
+.Toastify__toast-container {
+  @apply !text-sm !font-medium;
+}
+
+.Toastify__toast {
+  @apply !bg-white dark:!bg-gray-800 !text-gray-900 dark:!text-gray-100 !shadow-large !rounded-lg !border !border-gray-200 dark:!border-gray-700;
+  @apply !min-h-[48px] !p-3;
+}
+
+.Toastify__toast--success {
+  @apply !border-l-4 !border-l-success;
+}
+
+.Toastify__toast--error {
+  @apply !border-l-4 !border-l-error;
+}
+
+.Toastify__toast--warning {
+  @apply !border-l-4 !border-l-warning;
+}
+
+.Toastify__toast--info {
+  @apply !border-l-4 !border-l-info;
+}
+
+.Toastify__progress-bar {
+  @apply !bg-primary-500;
+}
+
+.Toastify__close-button {
+  @apply !text-gray-400 hover:!text-gray-600 dark:!text-gray-500 dark:hover:!text-gray-300;
+}

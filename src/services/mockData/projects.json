@@ -1,0 +1,44 @@
+[
+  {
+    "Id": 1,
+    "name": "Website Redesign",
+    "color": "#5B47E0",
+    "description": "Complete overhaul of the company website with modern design and improved user experience",
+    "createdAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "Id": 2,
+    "name": "Mobile App Development",
+    "color": "#F97316",
+    "description": "Development of iOS and Android mobile applications for task management",
+    "createdAt": "2024-01-03T00:00:00Z"
+  },
+  {
+    "Id": 3,
+    "name": "Marketing Campaign Q1",
+    "color": "#10B981",
+    "description": "First quarter marketing campaign to increase brand awareness and user acquisition",
+    "createdAt": "2024-01-05T00:00:00Z"
+  },
+  {
+    "Id": 4,
+    "name": "API Integration",
+    "color": "#3B82F6",
+    "description": "Integration with third-party APIs for enhanced functionality and data synchronization",
+    "createdAt": "2024-01-07T00:00:00Z"
+  },
+  {
+    "Id": 5,
+    "name": "Security Audit",
+    "color": "#EF4444",
+    "description": "Comprehensive security review and implementation of security best practices",
+    "createdAt": "2024-01-09T00:00:00Z"
+  },
+  {
+    "Id": 6,
+    "name": "Performance Optimization",
+    "color": "#8B5CF6",
+    "description": "System-wide performance improvements and optimization initiatives",
+    "createdAt": "2024-01-11T00:00:00Z"
+  }
+]
