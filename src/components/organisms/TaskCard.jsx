@@ -17,9 +17,9 @@ const TaskCard = ({ task, project, onStatusChange, onTaskClick, className, dragH
       'Completed': 'Not Started'
     };
     onStatusChange(task.Id, statusFlow[task.status]);
-  };
+};
 
-  const isOverdue = task.dueDate && new Date(task.dueDate) < new Date() && task.status !== 'Completed';
+  const isOverdue = task.due_date && new Date(task.due_date) < new Date() && task.status !== 'Completed';
 
   return (
     <motion.div
@@ -51,9 +51,9 @@ const TaskCard = ({ task, project, onStatusChange, onTaskClick, className, dragH
               />
               <h3 className={cn(
                 'font-medium text-gray-900 dark:text-gray-100 truncate',
-                task.status === 'Completed' && 'line-through text-gray-500'
+task.status === 'Completed' && 'line-through text-gray-500'
               )}>
-                {task.title}
+                {task.title || task.Name}
               </h3>
             </div>
             
@@ -68,37 +68,36 @@ const TaskCard = ({ task, project, onStatusChange, onTaskClick, className, dragH
               <StatusBadge status={task.status} size="sm" />
             </div>
             
-            <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+<div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
               <div className="flex items-center gap-4">
-                {task.dueDate && (
+                {task.due_date && (
                   <div className={cn(
                     'flex items-center gap-1',
                     isOverdue && 'text-error font-medium'
                   )}>
                     <ApperIcon name="Calendar" size={12} />
-                    {format(new Date(task.dueDate), 'MMM d')}
+                    {format(new Date(task.due_date), 'MMM d')}
                   </div>
                 )}
                 
-                {project && (
+{project && (
                   <div className="flex items-center gap-1">
                     <ApperIcon name="FolderOpen" size={12} />
-                    {project.name}
+                    {project.Name || project.name}
                   </div>
                 )}
-                
-                {task.isRecurring && (
+{task.is_recurring && (
                   <div className="flex items-center gap-1">
                     <ApperIcon name="Repeat" size={12} />
-                    {task.recurringPattern}
+                    {task.recurring_pattern}
                   </div>
                 )}
               </div>
               
-              <div className="text-xs text-gray-400">
-                {format(new Date(task.createdAt), 'MMM d')}
+<div className="text-xs text-gray-400">
+                {format(new Date(task.created_at || task.CreatedOn), 'MMM d')}
               </div>
-</div>
+            </div>
           </div>
           
           <div

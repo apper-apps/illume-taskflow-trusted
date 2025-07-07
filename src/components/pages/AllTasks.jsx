@@ -112,11 +112,11 @@ const getFilteredTasks = () => {
         <div className="pb-6">
           {viewMode === 'list' ? (
             <div className="space-y-4">
-              {filteredTasks.map(task => (
+{filteredTasks.map(task => (
                 <TaskCard
                   key={task.Id}
                   task={task}
-                  project={getProject(task.projectId)}
+                  project={getProject(task.project_id || task.projectId)}
                   onStatusChange={handleStatusChange}
                   onTaskClick={onTaskClick}
                 />

@@ -80,9 +80,9 @@ const KanbanBoard = ({ tasks, projects, onStatusChange, onTaskClick, className }
                               {...provided.draggableProps}
                               style={provided.draggableProps.style}
                             >
-                              <TaskCard
+<TaskCard
                                 task={task}
-                                project={getProject(task.projectId)}
+                                project={getProject(task.project_id || task.projectId)}
                                 onStatusChange={onStatusChange}
                                 onTaskClick={onTaskClick}
                                 dragHandleProps={provided.dragHandleProps}
