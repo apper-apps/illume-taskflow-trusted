@@ -24,8 +24,8 @@ const Projects = ({ onNewProject }) => {
       ]);
       
       // Calculate task counts for each project
-      const projectsWithStats = projectsData.map(project => {
-        const projectTasks = tasksData.filter(task => task.projectId === project.Id.toString());
+const projectsWithStats = projectsData.map(project => {
+        const projectTasks = tasksData.filter(task => (task.project_id || task.projectId) === project.Id.toString());
         return {
           ...project,
           taskCount: projectTasks.length,

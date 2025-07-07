@@ -59,15 +59,15 @@ const AllTasks = ({ onNewTask, onTaskClick }) => {
     }
   };
 
-  const getFilteredTasks = () => {
+const getFilteredTasks = () => {
     return tasks.filter(task => {
       const matchesSearch = !filters.search || 
-        task.title.toLowerCase().includes(filters.search.toLowerCase()) ||
-        task.description.toLowerCase().includes(filters.search.toLowerCase());
+        (task.title || task.Name || '').toLowerCase().includes(filters.search.toLowerCase()) ||
+        (task.description || '').toLowerCase().includes(filters.search.toLowerCase());
       
       const matchesPriority = !filters.priority || task.priority === filters.priority;
       const matchesStatus = !filters.status || task.status === filters.status;
-      const matchesProject = !filters.project || task.projectId === filters.project;
+      const matchesProject = !filters.project || (task.project_id || task.projectId) === filters.project;
       
       return matchesSearch && matchesPriority && matchesStatus && matchesProject;
     });

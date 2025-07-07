@@ -52,7 +52,7 @@ const Dashboard = ({ onNewTask, onTaskClick }) => {
     }
   };
 
-  const calculateStats = () => {
+const calculateStats = () => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     
@@ -61,13 +61,13 @@ const Dashboard = ({ onNewTask, onTaskClick }) => {
 
     return {
       dueToday: tasks.filter(task => {
-        const dueDate = new Date(task.dueDate);
+        const dueDate = new Date(task.due_date || task.dueDate);
         return dueDate >= today && dueDate < tomorrow && task.status !== 'Completed';
       }).length,
       completed: tasks.filter(task => task.status === 'Completed').length,
       inProgress: tasks.filter(task => task.status === 'In Progress').length,
       overdue: tasks.filter(task => {
-        const dueDate = new Date(task.dueDate);
+        const dueDate = new Date(task.due_date || task.dueDate);
         return dueDate < today && task.status !== 'Completed';
       }).length,
     };
@@ -94,7 +94,7 @@ const Dashboard = ({ onNewTask, onTaskClick }) => {
     tomorrow.setDate(tomorrow.getDate() + 1);
 
     return tasks.filter(task => {
-      const dueDate = new Date(task.dueDate);
+      const dueDate = new Date(task.due_date || task.dueDate);
       return dueDate >= today && dueDate < tomorrow;
     }).slice(0, 5);
   };
