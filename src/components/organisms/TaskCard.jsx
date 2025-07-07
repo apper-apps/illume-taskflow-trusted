@@ -8,7 +8,7 @@ import TaskStatusToggle from '@/components/molecules/TaskStatusToggle';
 import ApperIcon from '@/components/ApperIcon';
 import { cn } from '@/utils/cn';
 
-const TaskCard = ({ task, project, onStatusChange, onTaskClick, className }) => {
+const TaskCard = ({ task, project, onStatusChange, onTaskClick, className, dragHandleProps, isDragging }) => {
   const handleStatusToggle = (e) => {
     e.stopPropagation();
     const statusFlow = {
@@ -28,7 +28,10 @@ const TaskCard = ({ task, project, onStatusChange, onTaskClick, className }) => 
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
       whileHover={{ y: -2 }}
-      className={cn(className)}
+      className={cn(
+        className,
+        isDragging && 'opacity-50 rotate-2 scale-105'
+      )}
     >
       <Card
         hoverable
@@ -39,7 +42,7 @@ const TaskCard = ({ task, project, onStatusChange, onTaskClick, className }) => 
           isOverdue && 'border-l-4 border-l-error'
         )}
       >
-        <div className="flex items-start justify-between gap-3">
+<div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-2">
               <TaskStatusToggle
@@ -95,7 +98,14 @@ const TaskCard = ({ task, project, onStatusChange, onTaskClick, className }) => 
               <div className="text-xs text-gray-400">
                 {format(new Date(task.createdAt), 'MMM d')}
               </div>
-            </div>
+</div>
+          </div>
+          
+          <div
+            {...dragHandleProps}
+            className="flex-shrink-0 opacity-30 hover:opacity-60 transition-opacity cursor-grab active:cursor-grabbing"
+          >
+            <ApperIcon name="GripVertical" size={16} />
           </div>
         </div>
       </Card>
