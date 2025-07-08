@@ -6,6 +6,7 @@ import Card from '@/components/atoms/Card';
 import FormField from '@/components/molecules/FormField';
 import ApperIcon from '@/components/ApperIcon';
 import { cn } from '@/utils/cn';
+import { projectService } from '@/services/api/projectService';
 
 const TaskForm = ({ task, onSave, onCancel, className }) => {
   const [formData, setFormData] = useState({
@@ -18,9 +19,10 @@ const TaskForm = ({ task, onSave, onCancel, className }) => {
     isRecurring: false,
     recurringPattern: '',
   });
-
-  const [errors, setErrors] = useState({});
-
+const [errors, setErrors] = useState({});
+  const [projects, setProjects] = useState([]);
+  const [projectsLoading, setProjectsLoading] = useState(true);
+  const [projectsError, setProjectsError] = useState(null);
   useEffect(() => {
     if (task) {
       setFormData({
@@ -34,8 +36,26 @@ const TaskForm = ({ task, onSave, onCancel, className }) => {
         recurringPattern: task.recurringPattern || '',
       });
     }
-  }, [task]);
+}, [task]);
 
+  // Load projects for dropdown
+  useEffect(() => {
+    const loadProjects = async () => {
+      try {
+        setProjectsLoading(true);
+        setProjectsError(null);
+        const projectsData = await projectService.getAll();
+        setProjects(projectsData);
+      } catch (error) {
+        console.error('Error loading projects:', error);
+        setProjectsError('Failed to load projects');
+      } finally {
+        setProjectsLoading(false);
+      }
+    };
+
+    loadProjects();
+  }, []);
   const handleChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     if (errors[field]) {
@@ -130,10 +150,10 @@ const TaskForm = ({ task, onSave, onCancel, className }) => {
                 type="select"
                 value={formData.priority}
                 onChange={(e) => handleChange('priority', e.target.value)}
-              >
-                <option value="Low">Low</option>
-                <option value="Medium">Medium</option>
+>
                 <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
               </FormField>
             </div>
 
@@ -143,7 +163,7 @@ const TaskForm = ({ task, onSave, onCancel, className }) => {
                 type="select"
                 value={formData.status}
                 onChange={(e) => handleChange('status', e.target.value)}
-              >
+>
                 <option value="Not Started">Not Started</option>
                 <option value="In Progress">In Progress</option>
                 <option value="Completed">Completed</option>
@@ -154,11 +174,19 @@ const TaskForm = ({ task, onSave, onCancel, className }) => {
                 type="select"
                 value={formData.projectId}
                 onChange={(e) => handleChange('projectId', e.target.value)}
-              >
+>
                 <option value="">Select Project</option>
-                <option value="1">Website Redesign</option>
-                <option value="2">Mobile App</option>
-                <option value="3">Marketing Campaign</option>
+                {projectsLoading && (
+                  <option value="" disabled>Loading projects...</option>
+                )}
+                {projectsError && (
+                  <option value="" disabled>Error loading projects</option>
+                )}
+                {!projectsLoading && !projectsError && projects.map((project) => (
+                  <option key={project.Id} value={project.Id}>
+                    {project.Name}
+                  </option>
+                ))}
               </FormField>
             </div>
 
